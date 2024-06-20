@@ -10,6 +10,13 @@
         <div class="container">
             <?php require "includes/menu.php"; ?>
             <h1>Cadastro Estado</h1>
+            <form method="post" action="acao/acaoEstado.php">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nome do Estado</label>
+                    <input type="text" name="estado" class="form-control" placeholder="Estado">
+                </div>
+                <input type="submit" name="enviar" value="Cadastrar País" class="btn btn-primary">
+            </form>
             <?php require "includes/rodape.php"; ?>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
