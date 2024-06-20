@@ -5,5 +5,5 @@
     echo $nome;
    }else{
     echo "nao clicou no botao";
-   }
+   }  
 ?>
