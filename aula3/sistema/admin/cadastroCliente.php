@@ -13,7 +13,18 @@
   <body>
 
     <div class="container">
-      <?php require "includes/menu.php"; ?>
+      <?php 
+      require "includes/menu.php"; 
+      session_start();
+
+      if(  isset($_SESSION['logar'] )){
+        echo "Bem vindo";
+      } else {
+        header("Location: ../index.php");
+        session_destroy();
+      }
+      
+      ?>
     <h1>Cadastro cliente!</h1>
    
     <form method="post" action="acao/acaoCliente.php">
