@@ -17,7 +17,6 @@
         }else{
             echo "<script> alert('Não foi possível enviar');window.location.href='../cadastroProduto.php';</script>";
         }
-        echo"<img width='100' src='imagem/" . $md5 .  $_FILES["foto"]["name"] . " ' /> ";
 
     }else{
         echo "Não foi possível cadastrar";

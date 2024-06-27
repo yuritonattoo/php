@@ -24,7 +24,7 @@
                 }
             
             ?>
-            <h1>Cadastro Produto</h1>
+            <h1>Cadastro País</h1>
             <form method="post" action="acao/acaoProduto.php" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nome do Produto</label>
