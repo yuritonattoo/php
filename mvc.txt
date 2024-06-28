@@ -1,0 +1,4 @@
+MVC 
+MODEL - declaração de variaveis
+CONTROLLER - ação -- insert/edit...
+VIEW - front
