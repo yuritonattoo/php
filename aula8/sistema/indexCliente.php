@@ -1,23 +1,17 @@
 <?php
 
     require_once "Sistema.php";
-    require_once "Produto.php";
     require_once "Cliente.php";
 
     $sistema = new Sistema ();
-    $produto = new Produto ();
     $cliente = new Cliente ();
 
-    echo $sistema->nome;
-    echo $sistema->mensagem;
+    if(isset($_POST['enviar'])){
+      echo $cliente->atributosClientes();
 
-    echo $produto->preco;
-    echo $produto->nome;
-    echo $produto->mensagem;
+    }
+    
 
-    echo $cliente->cpf;
-    echo $cliente->nome;
-    echo $cliente->mensagem;
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -32,6 +26,26 @@
     <title>SISTEMA</title>
   </head>
   <body>
+  <div class="container" style="background-color:lightblue; weight:100%;">
+    <h1>CLIENTE</h1>
+    <div class="container">
+      <form method="post" action="">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Nome</label>
+          <input type="text" name="nome" class="form-control" placeholder="Nome">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">CPF</label>
+          <input type="text" name="cpf" class="form-control" placeholder="000.000.000-00">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Mensagem</label>
+          <textarea name="mensagem" class="form-control" rows="3"></textarea>
+        </div>
+        <input type="submit" name="enviar" value="Enviar" class="btn btn-primary">
+      </form>
+    </div>    
+  </div>
     
 
 
