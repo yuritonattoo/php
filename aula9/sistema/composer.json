@@ -1,0 +1,12 @@
+{
+    "name": "05860159064/sistema",
+    "autoload": {
+        "classmap": ["sistema"]
+    },
+    "authors": [
+        {
+            "name": "yuritonatto"
+        }
+    ],
+    "require": {}
+}

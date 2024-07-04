@@ -27,7 +27,7 @@
   </head>
   <body>
     <div class="container" style="background-color:lightblue; weight:100%;">
-    <h1>FORNECEDOR</h1>
+    <h1 style="text-align:center;">FORNECEDOR</h1>
     <div class="container">
       <form method="post" action="">
         <div class="form-group">
