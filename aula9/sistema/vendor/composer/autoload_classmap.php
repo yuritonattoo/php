@@ -6,6 +6,14 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Classe1' => $baseDir . '/sistema/Controller/Classe1.php',
+    'Classe2' => $baseDir . '/sistema/Controller/Classe2.php',
+    'Classe3' => $baseDir . '/sistema/Controller/Classe3.php',
+    'Classe4' => $baseDir . '/sistema/Controller/Classe4.php',
+    'Classe5' => $baseDir . '/sistema/Controller/Classe5.php',
+    'Classe6' => $baseDir . '/sistema/Controller/Classe6.php',
+    'Classe7' => $baseDir . '/sistema/Controller/Classe7.php',
+    'Classe8' => $baseDir . '/sistema/Controller/Classe8.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Teste' => $baseDir . '/sistema/Controller/Teste.php',
 );

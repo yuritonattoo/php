@@ -2,13 +2,13 @@
 
     require "../../vendor/autoload.php";
     //__DIR__ . "../../vendor/autoload.php";
-    class Teste 
+    class Classe3 
         {
-            public $nome = "Teste Autoload";
+            public $atributoClasse3 = "atributo 3";
 
             // MÉTODO QUE IMPRIME NOME
-            public function imprimeNome(){
-                echo $this ->nome;
+            public function imprimeatributoClasse3(){
+                echo $this ->atributoClasse3;
             }  
         }
 ?>
