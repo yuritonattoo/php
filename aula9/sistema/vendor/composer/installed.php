@@ -3,7 +3,7 @@
         'name' => '05860159064/sistema',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'a1e64089e992f653d6a728658be0893a2378b0cf',
+        'reference' => 'bef5337c3171497cf53671007e6ab6a242370a71',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '05860159064/sistema' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'a1e64089e992f653d6a728658be0893a2378b0cf',
+            'reference' => 'bef5337c3171497cf53671007e6ab6a242370a71',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

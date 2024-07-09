@@ -4,25 +4,18 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0b5939f127597c7f27e6fa5f29f16f4f
+class ComposerStaticInit8f4de7eee4580f48bcc3ecd5f5731938
 {
     public static $classMap = array (
-        'Classe1' => __DIR__ . '/../..' . '/sistema/Controller/Classe1.php',
-        'Classe2' => __DIR__ . '/../..' . '/sistema/Controller/Classe2.php',
-        'Classe3' => __DIR__ . '/../..' . '/sistema/Controller/Classe3.php',
-        'Classe4' => __DIR__ . '/../..' . '/sistema/Controller/Classe4.php',
-        'Classe5' => __DIR__ . '/../..' . '/sistema/Controller/Classe5.php',
-        'Classe6' => __DIR__ . '/../..' . '/sistema/Controller/Classe6.php',
-        'Classe7' => __DIR__ . '/../..' . '/sistema/Controller/Classe7.php',
-        'Classe8' => __DIR__ . '/../..' . '/sistema/Controller/Classe8.php',
+        'Cliente' => __DIR__ . '/../..' . '/sistema/Controller/Cliente.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Teste' => __DIR__ . '/../..' . '/sistema/Controller/Teste.php',
+        'Conexao' => __DIR__ . '/../..' . '/sistema/Conexao/Conexao.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit0b5939f127597c7f27e6fa5f29f16f4f::$classMap;
+            $loader->classMap = ComposerStaticInit8f4de7eee4580f48bcc3ecd5f5731938::$classMap;
 
         }, null, ClassLoader::class);
     }

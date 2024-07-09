@@ -1,11 +1,11 @@
 {
-    "name": "05860159064/sistema",
+    "name": "brianneukamp/sistema",
     "autoload": {
         "classmap": ["sistema"]
     },
     "authors": [
         {
-            "name": "yuritonatto"
+            "name": "brian"
         }
     ],
     "require": {}
