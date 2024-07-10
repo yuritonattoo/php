@@ -1,15 +1,15 @@
 <?php
 
     require "../../vendor/autoload.php";
-    $cliente = new Cliente();
+    $cidade = new Cidade();
     $conexao = new Conexao();
 
     if(isset($_POST['enviar'])){
         
         
-        if($cliente->inserirCliente($_POST) == "ok" ){
+        if($cidade->inserirCidade($_POST) == "ok" ){
             echo "inserido com suceso";
-            header("Location:cliente.php");
+            header("Location:cidade.php");
         }else{
             echo "Não deu";
         }
@@ -35,30 +35,13 @@
 
 <div class="container" style="margin-top:20px">
     <?php require "../includes/menu.php" ?>
-    <h3>Cadastro Cliente</h3> 
+    <h3>Cadastro Cidade</h3> 
 
     <form method="post" action="">
         <div class="form-group">
-            <label for="exampleInputEmail1">Nome</label>
-            <input type="text" name="nome" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu nome">
+            <label for="exampleInputEmail1">Cidade</label>
+            <input type="text" name="cidade" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Sua cidade">
         </div>
-
-        <div class="form-group">
-                <label for="exampleFormControlSelect1">Selecione o Estado</label>
-                <select name="estado" class="form-control" id="exampleFormControlSelect1">
-                    <option value="1">RS</option>
-                    <option value="2">SC</option>
-                    <option value="3">PR</option>
-                    <option value="4">SP</option>
-                    <option value="5">MG</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Digite sua Mensagem</label>
-                <textarea name="mensagem" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-
             <input type="submit" name="enviar" value="Enviar" class="btn btn-success">
         </form>
 
@@ -66,9 +49,7 @@
         <thead style="background-color:#808080">
             <tr>
                 <td scope="col" style="font-weight:bold;">ID</td>
-                <td scope="col" style="font-weight:bold;">Nome</td>
-                <td scope="col" style="font-weight:bold;">Estado</td>
-                <td scope="col" style="font-weight:bold;">Mensagem</td>
+                <td scope="col" style="font-weight:bold;">Cidade</td>
                 <td scope="col" style="font-weight:bold;">Editar</td>
                 <td scope="col" style="font-weight:bold;">Deletar</td>
             </tr>
@@ -76,13 +57,11 @@
         <tbody>
             <?php
                 $contagem = 1;
-                foreach($cliente->selecionarCliente() as $resultado ) {
+                foreach($cidade->selecionarCidade() as $resultado ) {
             ?>
             <tr>
                 <td scope="row" style="font-weight:bold;"> <?php echo $contagem++;?></td>
-                <td scope="row"> <?php echo $resultado['nome']; ?> </td>
-                <td scope="row"> <?php echo $resultado['estado']; ?> </td>
-                <td scope="row"> <?php echo $resultado['mensagem']; ?> </td>
+                <td scope="row"> <?php echo $resultado['cidade']; ?> </td>
                 <td><button type="button" class="btn btn-info">Editar</button></td>
                 <td><button type="button" class="btn btn-danger">Deletar</button></td>
             </tr>

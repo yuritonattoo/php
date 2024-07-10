@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
-        'name' => '05860159064/sistema',
+        'name' => 'brianneukamp/sistema',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'bef5337c3171497cf53671007e6ab6a242370a71',
+        'reference' => '6abd1f2fb06e0fb74683b2225bc6fadd67125342',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        '05860159064/sistema' => array(
+        'brianneukamp/sistema' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'bef5337c3171497cf53671007e6ab6a242370a71',
+            'reference' => '6abd1f2fb06e0fb74683b2225bc6fadd67125342',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
