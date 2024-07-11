@@ -38,10 +38,17 @@
     <h3>Cadastro Estado</h3> 
 
     <form method="post" action="">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Estado</label>
-            <input type="text" name="estado" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu estado">
-        </div>
+
+    <div class="form-group">
+                <label for="exampleFormControlSelect1">Selecione o Estado</label>
+                <select name="estado" class="form-control" id="exampleFormControlSelect1">
+                    <option value="1">RS</option>
+                    <option value="2">SC</option>
+                    <option value="3">PR</option>
+                    <option value="4">SP</option>
+                    <option value="5">MG</option>
+                </select>
+            </div>
             <input type="submit" name="enviar" value="Enviar" class="btn btn-success">
         </form>
 

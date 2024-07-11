@@ -95,16 +95,35 @@
          
                 try{
 
-                   $cst =  $this->con->conectar()->prepare("SELECT * FROM clientes");
-                   $cst->execute();
+                        $cst =  $this->con->conectar()->prepare("SELECT i.id, i.nome, i.mensagem, t.estado
+                        FROM clientes i
+                        join estado t on t.id = i.estado");
+                   
+                        $cst->execute();
 
-                   return $cst->fetchAll();
+                         return $cst->fetchAll();
        
-                }catch(PDOExecption $ex){
-                   echo $ex;
-                }
+                        }catch(PDOExecption $ex){
+                        echo $ex;
+                        }
+                
        
                }
+        public function selecionarEstado(){
+        
+        try{
+
+                $cst =  $this->con->conectar()->prepare("SELECT * FROM estado");
+                $cst->execute();
+
+                return $cst->fetchAll();
+
+        }catch(PDOExecption $ex){
+                echo $ex;
+        }
+
+        }
      }
 
 ?>
+

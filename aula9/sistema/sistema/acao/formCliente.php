@@ -1,15 +1,15 @@
 <?php
 
     require "../../vendor/autoload.php";
-    $pais = new Pais();
-    $conexao = new Conexao();
+    $cliente = new Cliente();
+    $estado = new Estado();
 
     if(isset($_POST['enviar'])){
         
         
-        if($pais->inserirPais($_POST) == "ok" ){
+        if($cliente->inserirCliente($_POST) == "ok" ){
             echo "inserido com suceso";
-            header("Location:pais.php");
+            header("Location:../view/cliente.php");
         }else{
             echo "Não deu";
         }
@@ -33,41 +33,40 @@
 </head>
 <body>
 
-<div class="container" style="margin-top:20px">
-    <?php require "../includes/menu.php" ?>
-    <h3>Cadastro Pais</h3> 
+<div class="container">
+<?php require "../includes/menu.php" ?>
+    <div class="row"> 
+        <div class="col-md-4"><h3>Cadastro Cliente</h3> </div>
+        <div class="col-md-8"> <input type="submit" name="enviar" value="Novo Cadastro" class="btn btn-success"></div>
+    </div>
+    
+    
 
     <form method="post" action="">
         <div class="form-group">
-            <label for="exampleInputEmail1">País</label>
-            <input type="text" name="pais" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu país">
+            <label for="exampleInputEmail1">Nome</label>
+            <input type="text" name="nome" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu nome">
         </div>
+
+        <div class="form-group">
+                <label for="exampleFormControlSelect1">Selecione o Estado</label>
+                <select name="estado" id="estado" class="form-control" id="exampleFormControlSelect1">
+                    <?php foreach($estado->selecionarEstado() as $resultado){ ?>
+                        <option value="<?php echo $resultado['id'];?>">
+                            <?php echo $resultado['estado'];?>
+                        </option>
+                   
+                        <?php } ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Digite sua Mensagem</label>
+                <textarea name="mensagem" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+
             <input type="submit" name="enviar" value="Enviar" class="btn btn-success">
         </form>
-
-    <table class="table table-striped" style="margin-top:20px; background-color:#DCDCDC;">
-        <thead style="background-color:#808080">
-            <tr>
-                <td scope="col" style="font-weight:bold;">ID</td>
-                <td scope="col" style="font-weight:bold;">Pais</td>
-                <td scope="col" style="font-weight:bold;">Editar</td>
-                <td scope="col" style="font-weight:bold;">Deletar</td>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-                $contagem = 1;
-                foreach($pais->selecionarPais() as $resultado ) {
-            ?>
-            <tr>
-                <td scope="row" style="font-weight:bold;"> <?php echo $contagem++;?></td>
-                <td scope="row"> <?php echo $resultado['pais']; ?> </td>
-                <td><button type="button" class="btn btn-info">Editar</button></td>
-                <td><button type="button" class="btn btn-danger">Deletar</button></td>
-            </tr>
-            <?php } ?>
-        </tbody>
-    </table>
 </div>
 
 <!-- JavaScript (Opcional) -->

@@ -2,7 +2,7 @@
 
     require "../../vendor/autoload.php";
     $cliente = new Cliente();
-    $conexao = new Conexao();
+    $estado = new Estado();
 
     if(isset($_POST['enviar'])){
         
@@ -33,35 +33,12 @@
 </head>
 <body>
 
-<div class="container" style="margin-top:20px">
-    <?php require "../includes/menu.php" ?>
-    <h3>Cadastro Cliente</h3> 
-
-    <form method="post" action="">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Nome</label>
-            <input type="text" name="nome" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu nome">
-        </div>
-
-        <div class="form-group">
-                <label for="exampleFormControlSelect1">Selecione o Estado</label>
-                <select name="estado" class="form-control" id="exampleFormControlSelect1">
-                    <option value="1">RS</option>
-                    <option value="2">SC</option>
-                    <option value="3">PR</option>
-                    <option value="4">SP</option>
-                    <option value="5">MG</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Digite sua Mensagem</label>
-                <textarea name="mensagem" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-
-            <input type="submit" name="enviar" value="Enviar" class="btn btn-success">
-        </form>
-
+<div class="container">
+<?php require "../includes/menu.php" ?>
+    <div class="row"> 
+        <div class="col-md-4"><h3>Cadastro Cliente</h3> </div>
+        <div class="col-md-8"> <a href="../acao/formCliente.php"> Novo Cadastro</a></div>
+    </div>
     <table class="table table-striped" style="margin-top:20px; background-color:#DCDCDC;">
         <thead style="background-color:#808080">
             <tr>
