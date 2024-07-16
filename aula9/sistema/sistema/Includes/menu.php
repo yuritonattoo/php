@@ -3,10 +3,10 @@
         <a style="color:black;" class="nav-link active" href="index.php">HOME</a>
     </li>
     <li class="nav-item">
-        <a style="color:black;" class="nav-link" href="cliente.php">CADASTRO CLIENTE</a>
+        <a style="color:black;" class="nav-link" href="../view/cliente.php">CADASTRO CLIENTE</a>
     </li>
     <li class="nav-item">
-        <a style="color:black;" class="nav-link" href="cadastroFornecedor.php">CADASTRO FORNECEDOR</a>
+        <a style="color:black;" class="nav-link" href="../view/fornecedor.php">CADASTRO FORNECEDOR</a>
     </li>
     <li class="nav-item">
         <a style="color:black;" class="nav-link" href="cadastroUsuario.php">CADASTRO USUÁRIO</a>

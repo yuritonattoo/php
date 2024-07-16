@@ -12,6 +12,8 @@ class ComposerStaticInit8f4de7eee4580f48bcc3ecd5f5731938
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Conexao' => __DIR__ . '/../..' . '/sistema/Conexao/Conexao.php',
         'Estado' => __DIR__ . '/../..' . '/sistema/Controller/Estado.php',
+        'Fornecedor' => __DIR__ . '/../..' . '/sistema/Controller/Fornecedor.php',
+        'Funcoes' => __DIR__ . '/../..' . '/sistema/Funcoes/Funcoes.php',
         'Pais' => __DIR__ . '/../..' . '/sistema/Controller/Pais.php',
     );
 

@@ -1,10 +1,15 @@
 <?php
 
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
     require "../../vendor/autoload.php";
     $cliente = new Cliente();
     $estado = new Estado();
-
-    if(isset($_POST['enviar'])){
+    $objfn = new Funcoes();
+    
+    //Cadastrar
+    if(isset($_POST['btCadastrar'])){
         
         
         if($cliente->inserirCliente($_POST) == "ok" ){
@@ -13,10 +18,37 @@
         }else{
             echo "Não deu";
         }
-
-
     }
-
+    //Editar
+    if(isset($_POST['btAlterar'])){
+        
+        
+        if($cliente->editarCliente($_POST) == "ok" ){
+            echo "Editado com sucesso";
+            header("Location:?acao=edit?func" . $objfn->base64($_POST["func"], 1));
+        }else{
+            echo "Erro ao editar";
+        }
+    }
+    //Saber qual é a ação
+    if(isset($_GET["acao"]))
+    {
+        switch($_GET["acao"])
+        {
+            case "edit" : 
+                $func = $cliente->SelecinaId($_GET["func"]); break;
+            case "delet" :
+                if($cliente->deletarId($_GET["func"]) == "ok")
+                {
+                    echo "Deletado Com Sucesso!!!!!! :)";
+                }
+                else
+                {
+                    echo "erro ao deletar";
+                }
+                break;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -35,10 +67,12 @@
 
 <div class="container">
 <?php require "../includes/menu.php" ?>
-    <div class="row"> 
-        <div class="col-md-4"><h3>Cadastro Cliente</h3> </div>
-        <div class="col-md-8"> <a href="../acao/formCliente.php"> Novo Cadastro</a></div>
+    <div class="row" style="margin-top:50px;"> 
+        <div class="col-md-4"><h3>Clientes Cadastrados</h3> </div>
+        <div class="col-md-8">  <a style="float:right;"button type="button" href="../acao/formCliente.php" class="btn btn-success">Cadastrar Cliente</button></a></div>
     </div>
+
+
     <table class="table table-striped" style="margin-top:20px; background-color:#DCDCDC;">
         <thead style="background-color:#808080">
             <tr>

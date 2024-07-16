@@ -4,18 +4,47 @@
     $cliente = new Cliente();
     $estado = new Estado();
 
-    if(isset($_POST['enviar'])){
+//Cadastrar
+if(isset($_POST['btCadastrar'])){
         
         
-        if($cliente->inserirCliente($_POST) == "ok" ){
-            echo "inserido com suceso";
-            header("Location:../view/cliente.php");
-        }else{
-            echo "Não deu";
-        }
-
-
+    if($cliente->inserirCliente($_POST) == "ok" ){
+        echo "inserido com suceso";
+        header("Location:../view/cliente.php");
+    }else{
+        echo "Não deu";
     }
+}
+//Editar
+if(isset($_POST['btAlterar'])){
+    
+    
+    if($cliente->editarCliente($_POST) == "ok" ){
+        echo "Editado com sucesso";
+        header("Location:?acao=edit?func" . $objfn->base64($_POST["func"], 1));
+    }else{
+        echo "Erro ao editar";
+    }
+}
+//Saber qual é a ação
+if(isset($_GET["acao"]))
+{
+    switch($_GET["acao"])
+    {
+        case "edit" : 
+            $func = $cliente->SelecinaId($_GET["func"]); break;
+        case "delet" :
+            if($cliente->deletarId($_GET["func"]) == "ok")
+            {
+                echo "Deletado Com Sucesso!!!!!! :)";
+            }
+            else
+            {
+                echo "erro ao deletar";
+            }
+            break;
+    }
+}
 
 ?>
 
@@ -35,9 +64,9 @@
 
 <div class="container">
 <?php require "../includes/menu.php" ?>
-    <div class="row"> 
+    <div class="row" style="margin-top:50px;"> 
         <div class="col-md-4"><h3>Cadastro Cliente</h3> </div>
-        <div class="col-md-8"> <input type="submit" name="enviar" value="Novo Cadastro" class="btn btn-success"></div>
+        <div class="col-md-8"> <a style="float:right;"button type="button" href="../view/cliente.php" class="btn btn-success">Lista Clientes</button></a></div>
     </div>
     
     
