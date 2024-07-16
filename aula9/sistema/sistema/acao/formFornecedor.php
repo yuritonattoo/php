@@ -99,7 +99,9 @@
                 <textarea name="mensagem" class="form-control" rows="3"></textarea>
             </div>
 
-            <input type="submit" name="enviar" value="Enviar" class="btn btn-success">
+            <input type="submit" class="btn btn-primary" name=" <?= (isset($_GET["acao"]) == "edit" ?
+            ("btAlterar") : ("btCadastrar" ) ) ?>" value="<?= (isset($_GET["acao"]) == "edit" ? ("Alterar") : ("Cadastrar") ) ?>">
+            <input type="hidden" name="func" value="<?= (isset($func["id"]) ? $objfn->base64($func["id"],1) : " " ) ?>">
         </form>
 
         
