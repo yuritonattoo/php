@@ -78,14 +78,14 @@
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Email</label>
-            <input type="text" name="email" class="form-control" id="email" value="<?=(isset($func["email"]) ?  ($func["email"]) : ("") )   ?>">
+            <input type="email" name="email" class="form-control" id="email" value="<?=(isset($func["email"]) ?  ($func["email"]) : ("") )   ?>">
         </div>
 
         <div class="form-group">
                 <label for="exampleFormControlSelect1">Nivel</label>
                 <select name="nivel" class="form-control" id="exampleFormControlSelect1">
-                    <option value="1">PADRAO</option>
-                    <option value="2">ADMIN</option>
+                    <option value="PADRAO">Padrão</option>
+                    <option value="ADMIN">Admininastro</option>
                 </select>
             </div>
             <div class="form-group">
