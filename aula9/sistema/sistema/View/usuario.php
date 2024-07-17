@@ -1,11 +1,11 @@
+
 <?php
 
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
     require "../../vendor/autoload.php";
-    $cliente = new Cliente();
-    $estado = new Estado();
+    $usuario = new Usuario();
     $objfn = new Funcoes();
     
    
@@ -14,10 +14,10 @@
 
         switch($_GET['acao']){
             case "edit" : 
-                    $func = $cliente->selecionaId($_GET['func']);
+                    $func = $usuario->selecionaId($_GET['func']);
                 break;
             case "delet" : 
-                if($cliente->deletarId($_GET['func']) == "ok"){
+                if($usuario->deletarId($_GET['func']) == "ok"){
                     echo "Deletado com Sucesso";
                 }else{
                     echo "Não Deletou";
@@ -47,8 +47,8 @@
 <div class="container">
 <?php require "../includes/menu.php" ?>
     <div class="row" style="margin-top:50px;"> 
-        <div class="col-md-4"><h3>Clientes Cadastrados</h3> </div>
-        <div class="col-md-8">  <a style="float:right;"button type="button" href="../acao/formCliente.php" class="btn btn-success">Cadastrar Cliente</button></a></div>
+        <div class="col-md-4"><h3>Usuários</h3> </div>
+        <div class="col-md-8">  <a style="float:right;"button type="button" href="../acao/formUsuario.php" class="btn btn-success">Cadastrar Usuario</button></a></div>
     </div>
 
 
@@ -57,7 +57,9 @@
             <tr>
                 <td scope="col" style="font-weight:bold;">ID</td>
                 <td scope="col" style="font-weight:bold;">Nome</td>
-                <td scope="col" style="font-weight:bold;">Estado</td>
+                <td scope="col" style="font-weight:bold;">Email</td>
+                <td scope="col" style="font-weight:bold;">Nivel</td>
+                <td scope="col" style="font-weight:bold;">Senha</td>
                 <td scope="col" style="font-weight:bold;">Mensagem</td>
                 <td scope="col" style="font-weight:bold;">Editar</td>
                 <td scope="col" style="font-weight:bold;">Deletar</td>
@@ -66,14 +68,16 @@
         <tbody>
             <?php
                 $contagem = 1;
-                foreach($cliente->selecionarCliente() as $resultado ) {
+                foreach($usuario->selecionarUsuario() as $resultado ) {
             ?>
             <tr>
                 <td scope="row" style="font-weight:bold;"> <?php echo $contagem++;?></td>
                 <td scope="row"> <?php echo $resultado['nome']; ?> </td>
-                <td scope="row"> <?php echo $resultado['estado']; ?> </td>
+                <td scope="row"> <?php echo $resultado['email']; ?> </td>
+                <td scope="row"> <?php echo $resultado['nivel']; ?> </td>
+                <td scope="row"> <?php echo $resultado['senha']; ?> </td>
                 <td scope="row"> <?php echo $resultado['mensagem']; ?> </td>
-                <td><a class="btn btn-warning" href="http://localhost:8080/php/php/aula9/sistema/sistema/acao/formcliente.php?acao=edit&func=<?= $objfn->base64($resultado["id"], 1) ?>">Editar</a></td>
+                <td><a class="btn btn-warning" href="http://localhost:8080/php/php/aula9/sistema/sistema/acao/formusuario.php?acao=edit&func=<?= $objfn->base64($resultado["id"], 1) ?>">Editar</a></td>
                 <td><a class="btn btn-danger" href="?acao=delet&func=<?= $objfn->base64($resultado["id"], 1) ?>">Deletar</a>
             </tr>
             <?php } ?>

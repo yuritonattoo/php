@@ -9,7 +9,7 @@
         <a style="color:black;" class="nav-link" href="../view/fornecedor.php">CADASTRO FORNECEDOR</a>
     </li>
     <li class="nav-item">
-        <a style="color:black;" class="nav-link" href="cadastroUsuario.php">CADASTRO USUÁRIO</a>
+        <a style="color:black;" class="nav-link" href="../view/usuario.php">CADASTRO USUÁRIO</a>
     </li>
     <li class="nav-item">
         <a style="color:black;" class="nav-link" href="cadastroProduto.php">CADASTRO PRODUTO</a>

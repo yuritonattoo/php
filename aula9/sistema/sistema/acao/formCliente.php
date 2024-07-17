@@ -2,49 +2,51 @@
 
     require "../../vendor/autoload.php";
     $cliente = new Cliente();
-    $estado = new Estado();
+    $objfn = new Funcoes();
 
-//Cadastrar
-if(isset($_POST['btCadastrar'])){
+    //Cadastrar
+    if(isset($_POST['btCadastrar'])){
+            
+        if($cliente->inserirCliente($_POST) == "ok" ){
+            echo "inserido com suceso";
+            header("Location: ../View/cliente.php");
+        }else{
+            echo "Não deu";
+        }
+    }
+
+    //Editar
+    if(isset($_POST['btAlterar'])){
         
-        
-    if($cliente->inserirCliente($_POST) == "ok" ){
-        echo "inserido com suceso";
-        header("Location:../view/cliente.php");
-    }else{
-        echo "Não deu";
+        if($cliente->editarCliente($_POST) == "ok" ){
+            echo "Editado com Sucesso";
+            header("Location: ?acao=edit?func" . $objfn->base64($_POST['func'], 1));
+            header("Location: ../View/cliente.php");
+        }else{
+            echo "Não deu";
+        }
     }
-}
-//Editar
-if(isset($_POST['btAlterar'])){
-    
-    
-    if($cliente->editarCliente($_POST) == "ok" ){
-        echo "Editado com sucesso";
-        header("Location:?acao=edit?func" . $objfn->base64($_POST["func"], 1));
-    }else{
-        echo "Erro ao editar";
+
+    //Saber qual é a ação Editar e Deletar
+    if(isset($_GET['acao'])){
+
+        switch($_GET['acao']){
+            case "edit" : 
+                    $func = $cliente->selecionaId($_GET['func']);
+                break;
+            case "delet" : 
+                if($cliente->deletarId($_GET['func']) == "ok"){
+                    echo "Deletado com Sucesso";
+                    header ("location: ../cliente.php");
+                }else{
+                    echo "Não Deletou";
+                }
+                
+                break;
+        }
+
     }
-}
-//Saber qual é a ação
-if(isset($_GET["acao"]))
-{
-    switch($_GET["acao"])
-    {
-        case "edit" : 
-            $func = $cliente->SelecinaId($_GET["func"]); break;
-        case "delet" :
-            if($cliente->deletarId($_GET["func"]) == "ok")
-            {
-                echo "Deletado Com Sucesso!!!!!! :)";
-            }
-            else
-            {
-                echo "erro ao deletar";
-            }
-            break;
-    }
-}
+
 
 ?>
 
@@ -62,41 +64,52 @@ if(isset($_GET["acao"]))
 </head>
 <body>
 
-<div class="container">
-<?php require "../includes/menu.php" ?>
-    <div class="row" style="margin-top:50px;"> 
-        <div class="col-md-4"><h3>Cadastro Cliente</h3> </div>
-        <div class="col-md-8"> <a style="float:right;"button type="button" href="../view/cliente.php" class="btn btn-success">Lista Clientes</button></a></div>
+<div class="container"> 
+    <?php require "../Includes/menu.php" ?>
+    <div class="row">
+        <div class="col-md-4" style="margin-top:40px"> <h1>Cadastro Cliente</h1> </div>
+        <div class="col-md-8">   </div>
     </div>
     
-    
-
     <form method="post" action="">
         <div class="form-group">
-            <label for="exampleInputEmail1">Nome</label>
-            <input type="text" name="nome" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Seu nome">
+            <label for="exampleInputEmail1">Nome do Cliente</label>
+            <input type="text" name="nome" class="form-control" id="nome" value="<?=(isset($func["nome"]) ?  ($func["nome"]) : ("") )   ?>">
         </div>
 
         <div class="form-group">
-                <label for="exampleFormControlSelect1">Selecione o Estado</label>
-                <select name="estado" id="estado" class="form-control" id="exampleFormControlSelect1">
-                    <?php foreach($estado->selecionarEstado() as $resultado){ ?>
-                        <option value="<?php echo $resultado['id'];?>">
-                            <?php echo $resultado['estado'];?>
-                        </option>
-                   
-                        <?php } ?>
+            <label for="exampleFormControlSelect1">Estado</label>
+                <select name="estado" class="form-control">
+                    <?php
+                    foreach($cliente->selecionarEstado() as $resultado1)
+                    { ?>
+                    <option value="<?php echo $resultado1['id']; ?>">
+                        <?php echo $resultado1['estado']; ?>
+                    </option>
+                    <?php } ?>
                 </select>
-            </div>
+        </div>
 
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Digite sua Mensagem</label>
-                <textarea name="mensagem" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="exampleFormControlTextarea1">Mensagem</label>
+                <textarea class="form-control" name="mensagem"  rows="3">   <?php echo (isset($func["mensagem"]) ? ($func["mensagem"]) : ("")  ); ?> </textarea>
             </div>
 
-            <input type="submit" name="enviar" value="Enviar" class="btn btn-success">
+            <input type="submit" class="btn btn-primary"
+                name=" <?= (isset($_GET["acao"]) == "edit" ?
+                    ("btAlterar") : ("btCadastrar" ) )
+                    ?>" value="<?= (isset($_GET["acao"]) == "edit" ? ("Alterar")
+                    : ("Cadastrar") )
+            ?>">
+            <input type="hidden" name="func" value="<?=
+                    (isset($func["id"]) ? $objfn->base64($func["id"],
+                    1) : " " )
+            ?>">
         </form>
-</div>
+
+        
+         <?php require "../Includes/rodape.php" ?>
+    </div>
 
 <!-- JavaScript (Opcional) -->
 <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->

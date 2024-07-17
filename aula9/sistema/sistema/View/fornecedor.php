@@ -4,17 +4,29 @@
 
     require "../../vendor/autoload.php";
     $fornecedor = new Fornecedor();
+    $objfn = new Funcoes();
 
 
-    if(isset($_POST['enviar'])){
-        
-        if($fornecedor->inserirFornecedor($_POST) == "ok" ){
-            echo "inserido com suceso";
-            header("Location: fornecedor.php");
-        }else{
-            echo "Não deu";
-        }
+
+//Saber qual é a ação
+if(isset($_GET["acao"]))
+{
+    switch($_GET["acao"])
+    {
+        case "edit" : 
+            $func = $fornecedor->SelecinaId($_GET["func"]); break;
+        case "delet" :
+            if($fornecedor->deletarId($_GET["func"]) == "ok")
+            {
+                echo "Deletado Com Sucesso!!!!!! :)";
+            }
+            else
+            {
+                echo "erro ao deletar";
+            }
+            break;
     }
+}
 
 ?>
 
@@ -65,8 +77,9 @@
                     <td><?php echo $ytaa['cidade'];  ?></td>
                     <td><?php echo $ytaa['telefone'];  ?></td>
                     <td><?php echo $ytaa['mensagem'];  ?></td>
-                    <td><button type="button" class="btn btn-info">Editar</button></td>
-                    <td><button type="button" class="btn btn-danger">Deletar</button></td>
+                    <td><a class="btn btn-warning" href="http://localhost:8080/php/php/aula9/sistema/sistema/acao/formfornecedor.php?acao=edit&func=<?= $objfn->base64($ytaa["id"], 1) ?>">Editar</a></td>
+                    <td><a class="btn btn-danger" href="?acao=delet&func=<?= $objfn->base64($ytaa["id"], 1) ?>">Deletar</a>
+            </tr>
                 </tr>
         <?php } ?>
             </tbody>

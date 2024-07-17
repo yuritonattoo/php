@@ -1,15 +1,15 @@
 <?php
 
     require "../../vendor/autoload.php";
-    $fornecedor = new Fornecedor();
+    $usuario = new Usuario();
     $objfn = new Funcoes();
 
     //Cadastrar
     if(isset($_POST['btCadastrar'])){
             
-        if($fornecedor->inserirFornecedor($_POST) == "ok" ){
+        if($usuario->inserirUsuario($_POST) == "ok" ){
             echo "inserido com suceso";
-            header("Location: ../View/fornecedor.php");
+            header("Location: ../View/usuario.php");
         }else{
             echo "Não deu";
         }
@@ -18,10 +18,10 @@
     //Editar
     if(isset($_POST['btAlterar'])){
         
-        if($fornecedor->editarFornecedor($_POST) == "ok" ){
+        if($usuario->editarUsuario($_POST) == "ok" ){
             echo "Editado com Sucesso";
             header("Location: ?acao=edit?func" . $objfn->base64($_POST['func'], 1));
-            header("Location: ../View/fornecedor.php");
+            header("Location: ../View/usuario.php");
         }else{
             echo "Não deu";
         }
@@ -32,12 +32,12 @@
 
         switch($_GET['acao']){
             case "edit" : 
-                    $func = $fornecedor->selecionaId($_GET['func']);
+                    $func = $usuario->selecionaId($_GET['func']);
                 break;
             case "delet" : 
-                if($fornecedor->deletarId($_GET['func']) == "ok"){
+                if($usuario->deletarId($_GET['func']) == "ok"){
                     echo "Deletado com Sucesso";
-                    header ("location: ../fornecedor.php");
+                    header ("location: ../usuario.php");
                 }else{
                     echo "Não Deletou";
                 }
@@ -67,75 +67,38 @@
 <div class="container"> 
     <?php require "../Includes/menu.php" ?>
     <div class="row">
-        <div class="col-md-4" style="margin-top:40px"> <h1>Cadastro Fornecedor</h1> </div>
+        <div class="col-md-4" style="margin-top:40px"> <h1>Cadastro Usuario</h1> </div>
         <div class="col-md-8">   </div>
     </div>
     
-    <form method="post" action=""> 
+    <form method="post" action="">
         <div class="form-group">
-            <label for="exampleInputEmail1">Nome do Fornecedor</label>
-            <input type="text" name="nome" class="form-control" placeholder="Nome do Fornecedor">
+            <label for="exampleInputEmail1">Nome do Usuario</label>
+            <input type="text" name="nome" class="form-control" id="nome" value="<?=(isset($func["nome"]) ?  ($func["nome"]) : ("") )   ?>">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Telefone</label>
-            <input type="text" name="telefone" class="form-control" placeholder="(00)00000-0000">
-        </div>
-
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Pais</label>
-                <select name="pais" class="form-control">
-                    <?php
-                    foreach($fornecedor->selecionarPais() as $resultado1) 
-                    { ?>
-                    <option value="<?php echo $resultado1['id']; ?>">
-                        <?php echo $resultado1['pais']; ?>
-                    </option>
-                    <?php } ?>
-                </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Estado</label>
-                <select name="estado" class="form-control">
-                    <?php
-                    foreach($fornecedor->selecionarEstado() as $resultado1)
-                    { ?>
-                    <option value="<?php echo $resultado1['id']; ?>">
-                        <?php echo $resultado1['estado']; ?>
-                    </option>
-                    <?php } ?>
-                </select>
+            <label for="exampleInputEmail1">Email</label>
+            <input type="text" name="email" class="form-control" id="email" value="<?=(isset($func["email"]) ?  ($func["email"]) : ("") )   ?>">
         </div>
 
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Cidade</label>
-                <select name="cidade" class="form-control">
-                    <?php
-                    foreach($fornecedor->selecionarCidade() as $resultado1)
-                    { ?>
-                    <option value="<?php echo $resultado1['id']; ?>">
-                        <?php echo $resultado1['cidade']; ?>
-                    </option>
-                    <?php } ?>
+                <label for="exampleFormControlSelect1">Nivel</label>
+                <select name="nivel" class="form-control" id="exampleFormControlSelect1">
+                    <option value="1">PADRAO</option>
+                    <option value="2">ADMIN</option>
                 </select>
+            </div>
+            <div class="form-group">
+            <label for="exampleInputEmail1">Senha</label>
+            <input type="password" name="senha" class="form-control" id="senha" value="<?=(isset($func["senha"]) ?  ($func["senha"]) : ("") )   ?>">
         </div>
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Pais</label>
-                <select name="pais" class="form-control">
-                    <?php
-                    foreach($fornecedor->selecionarPais() as $resultado1) 
-                    { ?>
-                    <option value="<?php echo $resultado1['id']; ?>">
-                        <?php echo $resultado1['pais']; ?>
-                    </option>
-                    <?php } ?>
-                </select>
-        </div>
-
+            
+            
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Mensagem</label>
-                <textarea name="mensagem" class="form-control" rows="3"></textarea>
+                <textarea class="form-control" name="mensagem"  rows="3">   <?php echo (isset($func["mensagem"]) ? ($func["mensagem"]) : ("")  ); ?> </textarea>
             </div>
+            
 
             <input type="submit" class="btn btn-primary"
                 name=" <?= (isset($_GET["acao"]) == "edit" ?
