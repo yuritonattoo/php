@@ -3,6 +3,18 @@
     require "../../vendor/autoload.php";
     $pais = new Pais();
     $conexao = new Conexao();
+    $a = new Usuario();
+
+    session_start();
+
+    if($_SESSION["logado"] == "logar")
+    {
+        $a->verificaUsuario($_SESSION["func"]);
+    }
+    else
+    {
+        header("Location:logar.php");
+    }
 
     if(isset($_POST['enviar'])){
         

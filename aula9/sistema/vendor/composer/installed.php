@@ -3,7 +3,7 @@
         'name' => 'brianneukamp/sistema',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'cdf558c77c3b06bea502139497b15be66f1bef0a',
+        'reference' => '53cc9833ecf3166eb316b0959d9b8d0f281b7385',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'brianneukamp/sistema' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'cdf558c77c3b06bea502139497b15be66f1bef0a',
+            'reference' => '53cc9833ecf3166eb316b0959d9b8d0f281b7385',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

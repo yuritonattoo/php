@@ -1,85 +1,103 @@
 <?php
 
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-
     require "../../vendor/autoload.php";
     $cliente = new Cliente();
-    $estado = new Estado();
     $objfn = new Funcoes();
-    
-   
-    //Saber qual é a ação
+    $a = new Usuario();
+
+    session_start();
+
+    if($_SESSION["logado"] == "logar")
+    {
+        $a->verificaUsuario($_SESSION["func"]);
+    }
+    else
+    {
+        header("Location:logar.php");
+    }
+    //Saber qual é a ação Editar e Deletar
     if(isset($_GET['acao'])){
 
         switch($_GET['acao']){
-            case "edit" : 
-                    $func = $cliente->selecionaId($_GET['func']);
-                break;
-            case "delet" : 
-                if($cliente->deletarId($_GET['func']) == "ok"){
-                    echo "Deletado com Sucesso";
-                }else{
-                    echo "Não Deletou";
-                }
-                
-                break;
-        }
 
-    }
-
+           case "edit":  $func = $cliente->selecionaId($_GET['func']);
+             break;
+           case "delet": 
+               if( $cliente->deletarId($_GET['func']) == "ok"){
+                   echo "Deletado com Sucesso";
+                   header("Location:cliente.php");
+               } else{
+                 echo "Não Deletou";
+               }
+             break;
+        } 
+     }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<!-- Meta tags Obrigatórias -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 <title>Sistema</title>
 </head>
 <body>
 
-<div class="container">
-<?php require "../includes/menu.php" ?>
-    <div class="row" style="margin-top:50px;"> 
-        <div class="col-md-4"><h3>Clientes Cadastrados</h3> </div>
-        <div class="col-md-8">  <a style="float:right;"button type="button" href="../acao/formCliente.php" class="btn btn-success">Cadastrar Cliente</button></a></div>
+<div class="container"> 
+    <?php require "../Includes/menu.php" ?>
+    <div class="row" style="margin-top:40px">
+        <div class="col-md-6"> <h1>Clientes Cadastrados </h1> </div>
+        <div class="col-md-6"> <a style="float:right" href="../acao/formcliente.php"> Cadastro Cliente </a> </div>
     </div>
 
+     <form method="post" action="">
+        <div class="form-group mt-5">
+                <label for="exampleFormControlInput1">Filtro:</label>
+                <input type="text" name="filtro" id="filtro" class="form-control col-md-4" placeholder="Nome">
+            </div>
+        <input type="submit" class="btn btn-primary" name="btnfiltro" value="Consultar">
+    </form>
 
-    <table class="table table-striped" style="margin-top:20px; background-color:#DCDCDC;">
-        <thead style="background-color:#808080">
-            <tr>
-                <td scope="col" style="font-weight:bold;">ID</td>
-                <td scope="col" style="font-weight:bold;">Nome</td>
-                <td scope="col" style="font-weight:bold;">Estado</td>
-                <td scope="col" style="font-weight:bold;">Mensagem</td>
-                <td scope="col" style="font-weight:bold;">Editar</td>
-                <td scope="col" style="font-weight:bold;">Deletar</td>
-            </tr>
-        </thead>
-        <tbody>
+        <table class="table" style="margin-top:50px">
+            <thead>
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Mensagem</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
             <?php
-                $contagem = 1;
-                foreach($cliente->selecionarCliente() as $resultado ) {
+                if (isset($_POST["btnfiltro"])) {
+                    $filtro = $_POST['filtro'];
+                    $contagem = 1;
+                    $resultados = $cliente->querySelecionaFiltro($filtro);
+                } else {
+                    $contagem = 1;
+                    $resultados = $cliente->selecionarCliente();
+                }
+
+                foreach ($resultados as $ytaa) {
             ?>
-            <tr>
-                <td scope="row" style="font-weight:bold;"> <?php echo $contagem++;?></td>
-                <td scope="row"> <?php echo $resultado['nome']; ?> </td>
-                <td scope="row"> <?php echo $resultado['estado']; ?> </td>
-                <td scope="row"> <?php echo $resultado['mensagem']; ?> </td>
-                <td><a class="btn btn-warning" href="http://localhost:8080/php/php/aula9/sistema/sistema/acao/formcliente.php?acao=edit&func=<?= $objfn->base64($resultado["id"], 1) ?>">Editar</a></td>
-                <td><a class="btn btn-danger" href="?acao=delet&func=<?= $objfn->base64($resultado["id"], 1) ?>">Deletar</a>
-            </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-</div>
+                <tr>
+                    <th scope="row"><?php echo $contagem++; ?></th>
+                    <td><?php echo $ytaa['nome'];  ?></td>
+                    <td><?php echo $ytaa['estado'];  ?></td>
+                    <td><?php echo $ytaa['mensagem'];  ?></td>
+                    <td><a class="btn btn-warning" href="../acao/formcliente.php?acao=edit&func=<?= $objfn->base64($ytaa["id"], 1) ?>">Editar</a></td>
+                    <td><a class="btn btn-danger" href="?acao=delet&func=<?= $objfn->base64($ytaa["id"], 1) ?>">Deletar</a>
+                </tr>
+        <?php } ?>
+            </tbody>
+         </table>
+    
+         <?php require "../Includes/rodape.php" ?>
+    </div>
 
 <!-- JavaScript (Opcional) -->
 <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->

@@ -5,7 +5,18 @@
     require "../../vendor/autoload.php";
     $fornecedor = new Fornecedor();
     $objfn = new Funcoes();
+    $a = new Usuario();
 
+    session_start();
+
+    if($_SESSION["logado"] == "logar")
+    {
+        $a->verificaUsuario($_SESSION["func"]);
+    }
+    else
+    {
+        header("Location:logar.php");
+    }
 
 
 //Saber qual é a ação

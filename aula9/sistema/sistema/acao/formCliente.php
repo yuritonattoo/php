@@ -20,7 +20,6 @@
         
         if($cliente->editarCliente($_POST) == "ok" ){
             echo "Editado com Sucesso";
-            header("Location: ?acao=edit?func" . $objfn->base64($_POST['func'], 1));
             header("Location: ../View/cliente.php");
         }else{
             echo "Não deu";
@@ -37,7 +36,7 @@
             case "delet" : 
                 if($cliente->deletarId($_GET['func']) == "ok"){
                     echo "Deletado com Sucesso";
-                    header ("location: ../cliente.php");
+                    header("Location:../cliente.php");
                 }else{
                     echo "Não Deletou";
                 }
@@ -79,15 +78,17 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Estado</label>
-                <select name="estado" class="form-control">
-                    <?php
-                    foreach($cliente->selecionarEstado() as $resultado1)
-                    { ?>
-                    <option value="<?php echo $resultado1['id']; ?>">
-                        <?php echo $resultado1['estado']; ?>
-                    </option>
-                    <?php } ?>
-                </select>
+            <select class="form-control"  name="estado" id="estado">
+                        <?php
+                        foreach ($cliente->selecionarEstado() as $rst){
+                            if ($rst["id"] == $func["estado"] ):
+                                ?>
+                                <option value='<?php echo $rst["id"]; ?>' selected> <?php echo $rst["estado"]; ?></option>;
+                            <?php else:
+                                ?>
+                                <option value='<?php echo $rst["id"]; ?>'><?php echo $rst["estado"]; ?></option>;
+                            <?php endif; }?>
+      </select>
         </div>
 
             <div class="form-group">

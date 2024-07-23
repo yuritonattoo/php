@@ -1,6 +1,6 @@
 <ul class="nav justify-content-center">
     <li class="nav-item">
-        <a style="color:black;" class="nav-link active" href="index.php">HOME</a>
+        <a style="color:black;" class="nav-link active" href="../view/home.php">HOME</a>
     </li>
     <li class="nav-item">
         <a style="color:black;" class="nav-link" href="../view/cliente.php">CADASTRO CLIENTE</a>
@@ -12,7 +12,7 @@
         <a style="color:black;" class="nav-link" href="../view/usuario.php">CADASTRO USUÁRIO</a>
     </li>
     <li class="nav-item">
-        <a style="color:black;" class="nav-link" href="cadastroProduto.php">CADASTRO PRODUTO</a>
+        <a style="color:black;" class="nav-link" href="../view/produtos.php">CADASTRO PRODUTO</a>
     </li>
     <li style="color:black;" class="nav-item dropdown">
             <a style="color:black;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

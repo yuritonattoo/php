@@ -9,8 +9,9 @@
         private $nivel;
         private $senha;
         private $mensagem;
+        const REGISTROS_POR_PAGINA = 5;
 
-           /**
+        /**
          * Get the value of id
          */
         public function getId()
@@ -117,17 +118,12 @@
 
                 return $this;
         }
-
-
-
-       
-
+        
         //Chamar Conexao com Banco de dados
         public function __construct (){
             $this->con = new Conexao();
             $this->objfn = new Funcoes();
         }
-
         //Método para Inserir Cliente
         public function inserirUsuario($dados){
          
@@ -135,10 +131,11 @@
             $this->nome = $dados['nome'];
             $this->email = $dados['email'];
             $this->nivel = $dados['nivel'];
+            //$this->senha = password_hash($dados['senha'], PASSWORD_DEFAULT);
             $this->senha = sha1($dados['senha']);
             $this->mensagem = $dados['mensagem'];
 
-            $cst =  $this->con->conectar()->prepare("INSERT INTO usuario (nome,email, nivel, senha, mensagem) VALUES (:nome,:email, :nivel, :senha, :mensagem) ");
+            $cst =  $this->con->conectar()->prepare("INSERT INTO usuario (nome,email,nivel,senha,mensagem) VALUES (:nome,:email,:nivel,:senha,:mensagem) ");
             $cst->bindParam(":nome" , $this->nome , PDO::PARAM_STR);
             $cst->bindParam(":email" , $this->email , PDO::PARAM_STR);
             $cst->bindParam(":nivel" , $this->nivel , PDO::PARAM_STR);
@@ -156,12 +153,10 @@
          }
 
         }
-
         //Método para Listar Clientes
         public function selecionarUsuario(){
-         
+        
                 try{
-
                         $cst =  $this->con->conectar()->prepare("SELECT * FROM usuario");
 
                         $cst->execute();
@@ -172,14 +167,12 @@
                         echo $ex;
                 }
         }
-
-
         //Método para Recuper o ID do Banco de Dados
         public function selecionaId($dado) {
                 try{
                     $this->id = $this->objfn->base64($dado, 2);
-                    $cst = $this->con->conectar()->prepare("SELECT id, nome, email, nivel, senha, mensagem FROM usuario WHERE id = :idUsuario ");
-                    $cst->bindParam(":idUsuario", $this->id, PDO::PARAM_INT);
+                    $cst = $this->con->conectar()->prepare("SELECT id, nome, email, nivel, senha, mensagem FROM usuario WHERE id = :idCliente ");
+                    $cst->bindParam(":idCliente", $this->id, PDO::PARAM_INT);
     
                         $cst->execute();
     
@@ -190,6 +183,7 @@
                 }
             }
 
+        
         //Método Editar
         public function editarUsuario($dados){
                 try{
@@ -201,7 +195,7 @@
                         $this->senha = sha1($dados['senha']);
                         $this->mensagem = $dados['mensagem']; 
 
-                        $cst = $this->con->conectar()->prepare("UPDATE usuario SET nome = :nome, email = :email, nivel = nivel, senha = senha, mensagem = :mensagem WHERE id = :idUsuario");
+                        $cst = $this->con->conectar()->prepare("UPDATE usuario SET nome = :nome , email = :email, nivel = :nivel, senha = :senha, mensagem = :mensagem WHERE id = :idCliente");
                         $cst->bindParam(":idCliente" , $this->id , PDO::PARAM_INT);
                         $cst->bindParam(":nome" , $this->nome , PDO::PARAM_STR);
                         $cst->bindParam(":email" , $this->email , PDO::PARAM_STR);
@@ -225,8 +219,8 @@
                 try{
                         $this->id = $this->objfn->base64($dado, 2);
             
-                        $cst = $this->con->conectar()->prepare("DELETE FROM usuario WHERE id= :idUsuario");
-                        $cst->bindParam(":idUsuario" , $this->id, PDO::PARAM_INT);
+                        $cst = $this->con->conectar()->prepare("DELETE FROM usuario WHERE id= :idCliente");
+                        $cst->bindParam(":idCliente" , $this->id, PDO::PARAM_INT);
                             if($cst->execute()){
                                 return "ok";
                             } else{
@@ -236,7 +230,89 @@
                             echo $ex;
                         }
         }
-       
+        //Método Logar
+        public function logarUsuarios($dados){
 
-     } 
+                $this->email = $dados["email"];
+                $this->senha = sha1( $dados["senha"] );
+
+                try{ 
+                        $cst = $this->con->conectar()->prepare("SELECT id, email, senha  FROM usuario WHERE email = :email AND senha = :senha ");
+                        $cst->bindParam(":email", $this->email, PDO::PARAM_STR);
+                        $cst->bindParam(":senha", $this->senha, PDO::PARAM_STR);
+
+                                $cst->execute();
+
+                                if($cst->rowCount() == 0 ){
+                                        header("Location:../View/logar.php");
+                                } else{
+                                        session_start();
+                                        $rst = $cst->fetch();
+                                        $_SESSION['logado'] = "logar";
+                                        $_SESSION['func'] = $rst['id'];
+                                        header("Location:../View/home.php");
+                                }
+                        }
+                        catch(PDOException $ex){
+                                echo $ex;
+                        }
+        }
+        //Método Verificar Usuario imprime a Sessao de dados
+        public function verificaUsuario($dado)
+        {
+                $cst = $this->con->conectar()->prepare("SELECT id,email,senha,nivel,nome FROM usuario WHERE id=:id");
+                $cst->bindParam(":id", $dado, PDO::PARAM_INT);
+
+                $cst->execute();
+
+                $rst = $cst->fetch();
+
+                $_SESSION["nome"] = $rst["nome"];
+                $_SESSION["nivel"] = $rst["nivel"];
+        }
+        //Método para Deslogar Usuário
+        public function deslogarUsuarios(){
+                session_destroy();
+                header("Location: ../View/logar.php");
+        }
+         // Método para Obter usuários
+        public function obterUsuariosPaginados($paginaAtual)
+        {
+            try {
+                $registrosPorPagina = self::REGISTROS_POR_PAGINA;
+                $offset = max(($paginaAtual - 1) * $registrosPorPagina, 0);
+
+                echo "Debug: Página Atual: $paginaAtual, Offset: $offset<br>";
+                echo "Debug: Consulta SQL: SELECT * FROM usuario ORDER BY id ASC LIMIT $offset, $registrosPorPagina<br>";
+
+                $cst = $this->con->conectar()->prepare("SELECT * FROM usuario ORDER BY id ASC LIMIT $offset, $registrosPorPagina");
+                //SELECT * FROM usuario ORDER BY id LIMIT 3, 5
+
+                $cst->execute();
+
+                $usuarios = $cst->fetchAll(PDO::FETCH_ASSOC);
+
+                echo "Debug: Número de Registros Retornados: " . count($usuarios) . "<br>";
+
+                return $usuarios;
+            } catch (PDOException $ex) {
+                echo 'Erro ao obter usuários paginados: ' . $ex->getMessage();
+            }
+        }
+        // Método para contar o total de usuários
+        public function contarTotalUsuarios()
+        {
+            try {
+                $cst = $this->con->conectar()->prepare("SELECT COUNT(*) AS total FROM usuario");
+                $cst->execute();
+                $resultado = $cst->fetch(PDO::FETCH_ASSOC);
+                return $resultado['total'];
+            } catch (PDOException $ex) {
+                echo $ex;
+            }
+        }
+
+
+} 
+
 ?>
